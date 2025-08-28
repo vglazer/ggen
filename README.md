@@ -87,7 +87,7 @@ The typical workflow is to generate an unweighted random graph of some kind usin
 
 Unlike `ggen`, `ggen.sh` cannot take adjacency or incidience lists as an input, but it has a more traditional syntax:
 
-- `ggen.sh` splits `ggen` output into the stats, which is dumps to the console, and the graph itself, which it saves to the `graphs/unweighted` directory
+- `ggen.sh` splits `ggen` output into the stats, which is dumps to the console, and the graph itself, which it saves to the `graphs/unweighted` directory. The stats are also saved to a separate file in the `graphs/unweighted` directory.
 - If `graphs/unweighted` does not exist (because `graphgen.sh` hasn't been run), `ggen.sh` will create it
 - However, `ggen.sh` won't build `ggen` for you, so be sure to run `make` (or `make ggen`) first
 
