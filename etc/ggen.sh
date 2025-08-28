@@ -49,8 +49,10 @@ graph_dir="$repo_dir/$unweighted_subdir"
 if [[ ! -d "$graph_dir" ]]; then
     mkdir -p "$graph_dir"
 fi
-graph_file="ggen_${graph_type}_${v}_${density}_${seed}_${compl}.txt"
+signature="$graph_type-$v-$num_sets-$density-$seed-$num_fixed-$fixed_type-$compl"
+graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
-
+stats_file="stats_$signature.txt"
+stats_path="$graph_dir/$stats_file"
 # save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk
-echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$"
+echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" > "$stats_path"
