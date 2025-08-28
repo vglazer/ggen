@@ -54,5 +54,5 @@ graph_file="graph_$signature.txt"
 graph_path="$graph_dir/$graph_file"
 stats_file="stats_$signature.txt"
 stats_path="$graph_dir/$stats_file"
-# save only the graph itself, which is specified as '-1'-terminated adjanency lists, to disk
+# split ggen output into two separate files, one for the stats and one for the graph itself
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary | tee >(grep "\-1$" > "$graph_path") | grep -v "\-1$" > "$stats_path"
