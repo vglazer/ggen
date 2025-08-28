@@ -13,7 +13,7 @@ There are sample commands below as well as more detailed explanations in the [re
 ## Quickstart
 
 - Clone the repo
-- `cd USRA/subgraph_finding`
+- `cd ggen`
 - `make ggen sub_search`
 - `etc/ggen.sh 2 100 600 1`
 - `(echo 100 11 55 0 5 100 25 4 72 1; cat graphs/unweighted/ggen_2_100_600_1_0.txt) | ./bin/sub_search`
@@ -74,7 +74,7 @@ V = 100, E = 2887
 
 You will need `make` and `gcc`. To install these on Ubuntu, run `sudo apt-get install build-essential` in a terminal window. If you are on a Mac, use `xcode-select --install` instead.
 
-To build everything, simply run `make` with no arguments in the top-level directory (i.e. `USRA/subgraph_finding`):
+To build everything, simply run `make` with no arguments in the top-level repo directory:
 
 - This will create a `bin` subdirectory containing the various graph programs. There are no external dependencies, so everything should work out of the box
 - It will also run [`etc/graphgen.sh`](etc/graphgen.sh) to generate some weighted and unweighted random graphs and save them to the `graphs` subdirectory
@@ -133,7 +133,7 @@ You can then use these graphs in your [`sub_search`](doc/sub_search.md) and [`ws
 
 ## Persisting ggen output to disk
 
-Assuming you are in the top-level directory (i.e. `USRA/subgraph_finding`) and successfully followed the instructions in the Building section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
+Assuming you are in the top-level repo directory and successfully followed the instructions in the Building section above, you can save both the graph and the experiment results to plain text files, like so (2-step approach):
 
 ```
 echo "2 100 0 600 2  0 0  0" | ./bin/ggen > graph.txt
