@@ -115,7 +115,7 @@ awk_script='
       print degree
 
       if (!degree) {
-        print "  "vertex ";" > "/dev/stderr"
+        print "  " vertex ";" > "/dev/stderr"
       }
     }
 
