@@ -12,21 +12,48 @@ bin_dir:
 
 .PHONY: tests
 tests: ggen tests_dir
+	etc/ggen.sh 2 10 500 42 tests
+	etc/graph2edges.sh tests/graph_exponential-10-500-42.txt
+	etc/edges2degrees.sh tests/edges_exponential-10-500-42.csv
+	etc/stats2counts.sh tests/stats_exponential-10-500-42.txt
+	diff -s tests/degree_counts_exponential-10-500-42.csv tests/counts_exponential-10-500-42.csv
+	etc/edges2neato.sh tests/edges_exponential-10-500-42.csv
+	etc/dot2pdf.sh tests/neato_exponential-10-500-42.dot
 	etc/ggen.sh 2 100 500 42 tests
 	etc/graph2edges.sh tests/graph_exponential-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_exponential-100-500-42.csv
 	etc/stats2counts.sh tests/stats_exponential-100-500-42.txt
 	diff -s tests/degree_counts_exponential-100-500-42.csv tests/counts_exponential-100-500-42.csv
+	etc/edges2dot.sh tests/edges_exponential-100-500-42.csv neato 30 true point 0.05
+	etc/dot2pdf.sh tests/neato_exponential-100-500-42.dot
+	etc/ggen.sh 3 10 500 42 tests
+	etc/graph2edges.sh tests/graph_power-10-500-42.txt
+	etc/edges2degrees.sh tests/edges_power-10-500-42.csv
+	etc/stats2counts.sh tests/stats_power-10-500-42.txt
+	diff -s tests/degree_counts_power-10-500-42.csv tests/counts_power-10-500-42.csv
+	etc/edges2neato.sh tests/edges_power-10-500-42.csv
+	etc/dot2pdf.sh tests/neato_power-100-500-42.dot
 	etc/ggen.sh 3 100 500 42 tests
 	etc/graph2edges.sh tests/graph_power-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_power-100-500-42.csv
 	etc/stats2counts.sh tests/stats_power-100-500-42.txt
 	diff -s tests/degree_counts_power-100-500-42.csv tests/counts_power-100-500-42.csv
+	etc/edges2dot.sh tests/edges_power-100-500-42.csv neato 30 true point 0.05
+	etc/dot2pdf.sh tests/neato_power-100-500-42.dot
+	etc/ggen.sh 4 10 500 42 tests
+	etc/graph2edges.sh tests/graph_geometric-10-500-42.txt
+	etc/edges2degrees.sh tests/edges_geometric-10-500-42.csv
+	etc/stats2counts.sh tests/stats_geometric-10-500-42.txt
+	diff -s tests/degree_counts_geometric-10-500-42.csv tests/counts_geometric-10-500-42.csv
+	etc/edges2neato.sh tests/edges_geometric-10-500-42.csv
+	etc/dot2pdf.sh tests/neato_geometric-10-500-42.dot
 	etc/ggen.sh 4 100 500 42 tests
 	etc/graph2edges.sh tests/graph_geometric-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_geometric-100-500-42.csv
 	etc/stats2counts.sh tests/stats_geometric-100-500-42.txt
 	diff -s tests/degree_counts_geometric-100-500-42.csv tests/counts_geometric-100-500-42.csv
+	etc/edges2dot.sh tests/edges_geometric-100-500-42.csv neato 30 true point 0.05
+	etc/dot2pdf.sh tests/neato_geometric-100-500-42.dot
 
 .PHONY: tests_dir
 tests_dir:
@@ -52,6 +79,15 @@ gallery: ggen gallery_dir
 	etc/ggen.sh 4 10 500 1 gallery
 	etc/ggen.sh 4 10 500 2 gallery
 	etc/ggen.sh 4 10 500 3 gallery
+	etc/ggen.sh 2 20 100 1 gallery
+	etc/ggen.sh 2 20 100 2 gallery
+	etc/ggen.sh 2 20 100 3 gallery
+	etc/ggen.sh 3 20 100 1 gallery
+	etc/ggen.sh 3 20 100 2 gallery
+	etc/ggen.sh 3 20 100 3 gallery
+	etc/ggen.sh 4 20 100 1 gallery
+	etc/ggen.sh 4 20 100 2 gallery
+	etc/ggen.sh 4 20 100 3 gallery
 	etc/ggen.sh 2 30 200 1 gallery
 	etc/ggen.sh 2 30 200 2 gallery
 	etc/ggen.sh 2 30 200 3 gallery
@@ -71,17 +107,6 @@ gallery: ggen gallery_dir
 	etc/ggen.sh 4 30 500 2 gallery
 	etc/ggen.sh 4 30 500 3 gallery
 	etc/ggen.sh 2 100 500 1 gallery
-	etc/graph2edges.sh gallery/graph_exponential-100-500-1.txt
-	etc/edges2dot.sh gallery/edges_exponential-100-500-1.csv neato 75 true point 0.05
-	etc/dot2pdf.sh gallery/neato_exponential-100-500-1.dot
-	etc/ggen.sh 3 100 500 1 gallery
-	etc/graph2edges.sh gallery/graph_power-100-500-1.txt
-	etc/edges2dot.sh gallery/edges_power-100-500-1.csv neato 75 true point 0.05
-	etc/dot2pdf.sh gallery/neato_power-100-500-1.dot
-	etc/ggen.sh 4 100 500 1 gallery
-	etc/graph2edges.sh gallery/graph_geometric-100-500-1.txt
-	etc/edges2dot.sh gallery/edges_geometric-100-500-1.csv neato 75 true point 0.05
-	etc/dot2pdf.sh gallery/neato_geometric-100-500-1.dot
 
 .PHONY: gallery_dir
 gallery_dir:
