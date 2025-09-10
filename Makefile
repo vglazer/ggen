@@ -32,7 +32,7 @@ tests: ggen tests_dir
 	etc/stats2counts.sh tests/stats_power-10-500-42.txt
 	diff -s tests/degree_counts_power-10-500-42.csv tests/counts_power-10-500-42.csv
 	etc/edges2neato.sh tests/edges_power-10-500-42.csv
-	etc/dot2pdf.sh tests/neato_power-100-500-42.dot
+	etc/dot2pdf.sh tests/neato_power-10-500-42.dot
 	etc/ggen.sh 3 100 500 42 tests
 	etc/graph2edges.sh tests/graph_power-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_power-100-500-42.csv
