@@ -44,21 +44,39 @@ gallery_dir:
 
 .PHONY: gallery
 gallery: gallery_dir
+	etc/ggen.sh 2 10 200 1 gallery
+	etc/ggen.sh 2 10 200 2 gallery
+	etc/ggen.sh 2 10 200 3 gallery
 	etc/ggen.sh 2 10 500 1 gallery
 	etc/ggen.sh 2 10 500 2 gallery
 	etc/ggen.sh 2 10 500 3 gallery
+	etc/ggen.sh 3 10 200 1 gallery
+	etc/ggen.sh 3 10 200 2 gallery
+	etc/ggen.sh 3 10 200 3 gallery
 	etc/ggen.sh 3 10 500 1 gallery
 	etc/ggen.sh 3 10 500 2 gallery
 	etc/ggen.sh 3 10 500 3 gallery
+	etc/ggen.sh 4 10 200 1 gallery
+	etc/ggen.sh 4 10 200 2 gallery
+	etc/ggen.sh 4 10 200 3 gallery
 	etc/ggen.sh 4 10 500 1 gallery
 	etc/ggen.sh 4 10 500 2 gallery
 	etc/ggen.sh 4 10 500 3 gallery
+	etc/ggen.sh 2 30 200 1 gallery
+	etc/ggen.sh 2 30 200 2 gallery
+	etc/ggen.sh 2 30 200 3 gallery
 	etc/ggen.sh 2 30 500 1 gallery
 	etc/ggen.sh 2 30 500 2 gallery
 	etc/ggen.sh 2 30 500 3 gallery
+	etc/ggen.sh 3 30 200 1 gallery
+	etc/ggen.sh 3 30 200 2 gallery
+	etc/ggen.sh 3 30 200 3 gallery
 	etc/ggen.sh 3 30 500 1 gallery
 	etc/ggen.sh 3 30 500 2 gallery
 	etc/ggen.sh 3 30 500 3 gallery
+	etc/ggen.sh 4 30 200 1 gallery
+	etc/ggen.sh 4 30 200 2 gallery
+	etc/ggen.sh 4 30 200 3 gallery
 	etc/ggen.sh 4 30 500 1 gallery
 	etc/ggen.sh 4 30 500 2 gallery
 	etc/ggen.sh 4 30 500 3 gallery
