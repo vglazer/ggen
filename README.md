@@ -7,7 +7,7 @@
 - `brew install graphviz`
 - `brew install gnuplot`
 - Clone the repo
-- cd into the top-level repo directory
+- `cd` into the top-level repo directory
 - `make`
 - Check out the Graphviz plots and Gnuplot histograms in the `gallery` subdirectory as well as the CSV files in the `tests` subdirectory
 
