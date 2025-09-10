@@ -18,7 +18,7 @@ Arguments:
   v            Number of vertices
   density      Graph density (0 <= density <= 1000; density 500 means that 50% of the edges are present)
   seed         Optional random seed (a positive integer), default: $default_seed
-  graph_dir    Directory to save graphs to, default: current working directory
+  graph_dir    Optional directory to save graphs to, default: current working directory
 
 Examples:
   exponential, 100  vertices,  density 600, seed $default_seed,  save to pwd:    $script_name 2 100  600

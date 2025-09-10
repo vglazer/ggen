@@ -17,11 +17,11 @@ Usage: $script_name v edges_file [layout] [sep] [splines] [shape] [width]
 Arguments:
   v           Number of vertices
   edges_file  Path to file containing graph edges. Filename must match edges_*.csv
-  layout      Graphviz layout engine (sfdp, neato), default: $default_layout
-  sep         Graphviz sep parameter (150, 5), default: $default_sep
-  splines     Graphviz splines parameter (false, true, curved), default: $default_splines
-  shape       Graphviz node shape parameter (point, circle), default: $default_shape
-  width       Graphviz node width (and height) parameter (0.05, 0.5), default: $default_width
+  layout      Optional Graphviz layout engine (sfdp, neato), default: $default_layout
+  sep         Optional Graphviz sep parameter (150, 5), default: $default_sep
+  splines     Optional Graphviz splines parameter (false, true, curved), default: $default_splines
+  shape       Optional Graphviz node shape parameter (point, circle), default: $default_shape
+  width       Optional Graphviz node width (and height) parameter (0.05, 0.5), default: $default_width
 
 EOF
   exit 1
