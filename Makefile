@@ -14,42 +14,42 @@ bin_dir:
 tests: ggen tests_dir
 	etc/ggen.sh 2 10 500 42 tests
 	etc/graph2edges.sh tests/graph_exponential-10-500-42.txt
-	etc/edges2degrees.sh tests/edges_exponential-10-500-42.csv
+	etc/edges2degrees.sh 10 tests/edges_exponential-10-500-42.csv
 	etc/stats2counts.sh tests/stats_exponential-10-500-42.txt
 	etc/edges2neato.sh tests/edges_exponential-10-500-42.csv
 	etc/dot2pdf.sh tests/neato_exponential-10-500-42.dot
 	diff -s tests/degree_counts_exponential-10-500-42.csv tests/counts_exponential-10-500-42.csv
 	etc/ggen.sh 2 100 500 42 tests
 	etc/graph2edges.sh tests/graph_exponential-100-500-42.txt
-	etc/edges2degrees.sh tests/edges_exponential-100-500-42.csv
+	etc/edges2degrees.sh 100 tests/edges_exponential-100-500-42.csv
 	etc/stats2counts.sh tests/stats_exponential-100-500-42.txt
 	etc/edges2dot.sh tests/edges_exponential-100-500-42.csv neato 30 true point 0.05
 	etc/dot2pdf.sh tests/neato_exponential-100-500-42.dot
 	diff -s tests/degree_counts_exponential-100-500-42.csv tests/counts_exponential-100-500-42.csv
 	etc/ggen.sh 3 10 500 42 tests
 	etc/graph2edges.sh tests/graph_power-10-500-42.txt
-	etc/edges2degrees.sh tests/edges_power-10-500-42.csv
+	etc/edges2degrees.sh 10 tests/edges_power-10-500-42.csv
 	etc/stats2counts.sh tests/stats_power-10-500-42.txt
 	etc/edges2neato.sh tests/edges_power-10-500-42.csv
 	etc/dot2pdf.sh tests/neato_power-10-500-42.dot
 	diff -s tests/degree_counts_power-10-500-42.csv tests/counts_power-10-500-42.csv
 	etc/ggen.sh 3 100 500 42 tests
 	etc/graph2edges.sh tests/graph_power-100-500-42.txt
-	etc/edges2degrees.sh tests/edges_power-100-500-42.csv
+	etc/edges2degrees.sh 100 tests/edges_power-100-500-42.csv
 	etc/stats2counts.sh tests/stats_power-100-500-42.txt
 	etc/edges2dot.sh tests/edges_power-100-500-42.csv neato 30 true point 0.05
 	etc/dot2pdf.sh tests/neato_power-100-500-42.dot
 	diff -s tests/degree_counts_power-100-500-42.csv tests/counts_power-100-500-42.csv
 	etc/ggen.sh 4 10 500 42 tests
 	etc/graph2edges.sh tests/graph_geometric-10-500-42.txt
-	etc/edges2degrees.sh tests/edges_geometric-10-500-42.csv
+	etc/edges2degrees.sh 10 tests/edges_geometric-10-500-42.csv
 	etc/stats2counts.sh tests/stats_geometric-10-500-42.txt
 	etc/edges2neato.sh tests/edges_geometric-10-500-42.csv
 	etc/dot2pdf.sh tests/neato_geometric-10-500-42.dot
 	diff -s tests/degree_counts_geometric-10-500-42.csv tests/counts_geometric-10-500-42.csv
 	etc/ggen.sh 4 100 500 42 tests
 	etc/graph2edges.sh tests/graph_geometric-100-500-42.txt
-	etc/edges2degrees.sh tests/edges_geometric-100-500-42.csv
+	etc/edges2degrees.sh 100 tests/edges_geometric-100-500-42.csv
 	etc/stats2counts.sh tests/stats_geometric-100-500-42.txt
 	etc/edges2dot.sh tests/edges_geometric-100-500-42.csv neato 30 true point 0.05
 	etc/dot2pdf.sh tests/neato_geometric-100-500-42.dot
