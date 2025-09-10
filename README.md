@@ -2,6 +2,8 @@
 
 ![exponential](assets/neato_exponential-100-500-42.png)
 
+Generate and plot Erdős–Rényi, scale-free and geometric random graphs
+
 ## Quickstart
 
 - `brew install graphviz`
