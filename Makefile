@@ -12,6 +12,13 @@ bin_dir:
 
 .PHONY: tests
 tests: ggen tests_dir
+	etc/ggen.sh 2 10 0 42 tests
+	etc/graph2edges.sh tests/graph_exponential-10-0-42.txt
+	etc/edges2degrees.sh 10 tests/edges_exponential-10-0-42.csv
+	etc/stats2counts.sh tests/stats_exponential-10-0-42.txt
+	etc/edges2neato.sh tests/edges_exponential-10-0-42.csv
+	etc/dot2pdf.sh tests/neato_exponential-10-0-42.dot
+	diff -s tests/degree_counts_exponential-10-0-42.csv tests/counts_exponential-10-0-42.csv
 	etc/ggen.sh 2 10 500 42 tests
 	etc/graph2edges.sh tests/graph_exponential-10-500-42.txt
 	etc/edges2degrees.sh 10 tests/edges_exponential-10-500-42.csv
