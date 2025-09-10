@@ -57,11 +57,13 @@ signature="$graph_type_str-$v-$density-$seed"
 hist_file="histogram_$signature.pdf"
 hist_path="$graph_dir/$hist_file"
 
+xlabel='degree'
+ylabel='frequency'
 gnuplot_script="
 set terminal pdf monochrome;
 set title '$graph_type_str (v = $v, density = $density); seed: $seed';
-set xlabel 'Degree';
-set ylabel 'Frequency';
+set xlabel '$xlabel';
+set ylabel '$ylabel';
 set output '$hist_path';
 plot '-' using 1:(1.0) smooth freq with boxes notitle
 "
