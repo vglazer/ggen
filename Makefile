@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-ansi -pedantic -Wall -Werror -O3 -march=native
 
-all: ggen tests gallery
+all: ggen gallery tests
 
 ggen: src/ggen.c bin_dir
 	$(CC) $(CFLAGS) $< -o bin/$@
@@ -10,12 +10,8 @@ ggen: src/ggen.c bin_dir
 bin_dir:
 	mkdir -p bin
 
-.PHONY: tests_dir
-tests_dir:
-	mkdir -p tests
-
 .PHONY: tests
-tests: tests_dir
+tests: ggen tests_dir
 	etc/ggen.sh 2 100 500 42 tests
 	etc/graph2edges.sh tests/graph_exponential-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_exponential-100-500-42.csv
@@ -38,12 +34,12 @@ tests: tests_dir
 	etc/edges2dot.sh tests/edges_geometric-100-500-42.csv neato 75 true point 0.05
 	etc/dot2pdf.sh tests/neato_geometric-100-500-42.dot
 
-.PHONY: gallery_dir
-gallery_dir:
-	mkdir -p gallery
+.PHONY: tests_dir
+tests_dir:
+	mkdir -p tests
 
 .PHONY: gallery
-gallery: gallery_dir
+gallery: ggen gallery_dir
 	etc/ggen.sh 2 10 200 1 gallery
 	etc/ggen.sh 2 10 200 2 gallery
 	etc/ggen.sh 2 10 200 3 gallery
@@ -80,6 +76,10 @@ gallery: gallery_dir
 	etc/ggen.sh 4 30 500 1 gallery
 	etc/ggen.sh 4 30 500 2 gallery
 	etc/ggen.sh 4 30 500 3 gallery
+
+.PHONY: gallery_dir
+gallery_dir:
+	mkdir -p gallery
 
 .PHONY: clean
 clean:
