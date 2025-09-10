@@ -21,16 +21,22 @@ tests: tests_dir
 	etc/edges2degrees.sh tests/edges_exponential-100-500-42.csv
 	etc/stats2counts.sh tests/stats_exponential-100-500-42.txt
 	diff -s tests/degree_counts_exponential-100-500-42.csv tests/counts_exponential-100-500-42.csv
+	etc/edges2dot.sh tests/edges_exponential-100-500-42.csv neato 75 true point 0.05
+	etc/dot2pdf.sh tests/neato_exponential-100-500-42.dot
 	etc/ggen.sh 3 100 500 42 tests
 	etc/graph2edges.sh tests/graph_power-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_power-100-500-42.csv
 	etc/stats2counts.sh tests/stats_power-100-500-42.txt
 	diff -s tests/degree_counts_power-100-500-42.csv tests/counts_power-100-500-42.csv
+	etc/edges2dot.sh tests/edges_power-100-500-42.csv neato 75 true point 0.05
+	etc/dot2pdf.sh tests/neato_power-100-500-42.dot
 	etc/ggen.sh 4 100 500 42 tests
 	etc/graph2edges.sh tests/graph_geometric-100-500-42.txt
 	etc/edges2degrees.sh tests/edges_geometric-100-500-42.csv
 	etc/stats2counts.sh tests/stats_geometric-100-500-42.txt
 	diff -s tests/degree_counts_geometric-100-500-42.csv tests/counts_geometric-100-500-42.csv
+	etc/edges2dot.sh tests/edges_geometric-100-500-42.csv neato 75 true point 0.05
+	etc/dot2pdf.sh tests/neato_geometric-100-500-42.dot
 
 .PHONY: gallery_dir
 gallery_dir:
