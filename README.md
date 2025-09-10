@@ -12,7 +12,7 @@
 ## Background
 
 - [`ggen`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/ggen.md) is part of [a larger suite of programs](https://github.com/vglazer/USRA/tree/master/subgraph_finding) for finding induced subgraphs with a prescribed edge count.
-- Among other things, ggen can generate three kinds of random graphs: "exponential" ([Erdős–Rényi](https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model)), "power" (scale-free) and "geometric" (in the plane, with no wrap-around)
+- Among other things, ggen can generate three kinds of random graphs: "exponential" ([Erdős–Rényi](https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model)), "power" (scale-free) and "geometric" (in the plane, with no wrap-around).
 - It is intended to be used in conjunction with [`sub_search`](https://github.com/vglazer/USRA/blob/master/subgraph_finding/doc/sub_search.md) and is a bit awkward to call directly.
 - Moreover, the native graph representation format used by `ggen`, `sub_search` and related programs -- effectively the adjacency lists corresponding to the upper-triangular portion of the adjacency matrix -- is non-standard and does not lend itself to visualization or manipulation.
 - This standalone repo contains a copy of [`ggen.c`](src/ggen.c) as well as [`ggen.sh`](etc/ggen.sh), a friendlier wrapper for a subset of `ggen`'s functionality. Be sure to `make ggen` before running `ggen.sh`.
