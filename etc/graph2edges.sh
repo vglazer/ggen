@@ -28,7 +28,7 @@ fi
 
 # needed because we are appending edges
 rm -f "$edges_path"
-
+touch "$edges_path"
 awk_script='{
   nedges += NF
   vertex = NR-1
