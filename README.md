@@ -1,5 +1,7 @@
 # ggen
 
+![exponential](assets/neato_exponential-100-500-42.png)
+
 ## Quickstart
 
 - `brew install graphviz`
