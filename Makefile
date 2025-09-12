@@ -3,18 +3,18 @@
 CC = gcc
 CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
 
-all: ggen test create_gallery
+all: bin/ggen test create_gallery
 
 bin:
 	mkdir -p $@
 
-ggen: src/ggen.c bin
-	$(CC) $(CFLAGS) $< -o bin/$@
+bin/ggen: src/ggen.c bin
+	$(CC) $(CFLAGS) $< -o $@
 
 tests:
 	mkdir -p $@
 
-test: ggen tests
+test: bin/ggen tests
 	etc/ggen.sh 2 10 0 42 tests
 	etc/graph2edges.sh tests/graph_exponential-10-0-42.txt
 	etc/edges2degrees.sh 10 tests/edges_exponential-10-0-42.csv
@@ -68,7 +68,7 @@ test: ggen tests
 gallery:
 	mkdir -p $@
 
-create_gallery: ggen gallery
+create_gallery: bin/ggen gallery
 	etc/ggen.sh 2 10 200 1 gallery
 	etc/ggen.sh 2 10 200 2 gallery
 	etc/ggen.sh 2 10 200 3 gallery
