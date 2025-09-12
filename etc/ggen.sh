@@ -3,32 +3,87 @@
 # "strict mode"
 set -euo pipefail
 
-graph_type_to_str[2]="exponential"
-graph_type_to_str[3]="power"
-graph_type_to_str[4]="geometric"
+
 
 script_name=$(basename "$0")
 default_seed=1
-if (( $# < 3 || $# > 5 )); then
+
+usage() {
   cat >&2 <<EOF
-Usage: $script_name graph_type v density [seed] [graph_dir]
+Usage: $script_name --graph-type <graph_type> --v <v> --density <density> [--seed <seed>] [--graph-dir <graph_dir>]
 
 Arguments:  
-  graph_type   Type of graph to generate (2: ${graph_type_to_str[2]}, 3: ${graph_type_to_str[3]}, 4: ${graph_type_to_str[4]})
-  v            Number of vertices
-  density      Graph density (0 <= density <= 1000; density 500 means that 50% of the edges are present)
-  seed         Optional random seed (a positive integer), default: $default_seed
-  graph_dir    Optional directory to save graphs to, default: current working directory
+  --graph-type   Type of graph to generate (exponential, power, geometric)
+  --v            Number of vertices
+  --density      Graph density (0 <= density <= 1000; density 500 means that 50% of the edges are present)
+  --seed         Optional random seed (a positive integer), default: $default_seed
+  --graph-dir    Optional directory to save graphs to, default: current working directory
 
 Examples:
-  exponential, 100  vertices,  density 600, seed $default_seed,  save to pwd:    $script_name 2 100  600
-  exponential, 100  vertices,  density 600, seed 42, save to graphs: $script_name 2 100  600 42 graphs
-  power,       2500 vertices,  density 200, seed 42, save to graphs: $script_name 3 2500 200 42 graphs
-  geometric,   790  vertices,  density 150, seed 42, save to graphs: $script_name 4 790  150 42 graphs
+  exponential, 100  vertices,  density 600, seed $default_seed,  save to pwd:    $script_name --graph-type exponential --v 100  --density 600
+  exponential, 100  vertices,  density 600, seed 42, save to graphs: $script_name --graph-type exponential --v 100  --density 600 --seed 42 --graph-dir graphs
+  power,       2500 vertices,  density 200, seed 42, save to graphs: $script_name --graph-type power       --v 2500 --density 200 --seed 42 --graph-dir graphs
+  geometric,   790  vertices,  density 150, seed 42, save to graphs: $script_name --graph-type geometric   --v 790  --density 150 --seed 42 --graph-dir graphs
 
 EOF
   exit 1
+}
+
+if [[ $# -eq 0 ]]; then
+  usage
 fi
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --graph-type)
+      graph_type_str="$2"
+      shift
+      shift
+      ;;
+    --v)
+      v="$2"
+      shift
+      shift
+      ;;
+    --density)
+      density="$2"
+      shift
+      shift
+      ;;
+    --seed)
+      seed="$2"
+      shift
+      shift
+      ;;
+    --graph-dir)
+      graph_dir="$2"
+      shift
+      shift
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+if [[ -z "$graph_type_str" || -z "$v" || -z "$density" ]]; then
+  usage
+fi
+
+case $graph_type_str in
+  exponential)
+    graph_type=2
+    ;;
+  power)
+    graph_type=3
+    ;;
+  geometric)
+    graph_type=4
+    ;;
+  *)
+    usage
+    ;;
+esac
 
 script_dir=$(dirname "$(realpath "$0")")
 repo_dir=$(dirname "$script_dir")
@@ -40,18 +95,14 @@ if [[ ! -f "$ggen_binary" ]]; then
 fi
 
 default_graph_dir=$(pwd)
-graph_dir=${5:-"$default_graph_dir"}
+graph_dir=${graph_dir:-"$default_graph_dir"}
 if [[ ! -d "$graph_dir" ]]; then
   echo "$script_name: graph directory '$graph_dir' does not exist" >&2
   echo "mkdir -p $graph_dir" >&2
   exit 1
 fi
 
-graph_type=$1
-graph_type_str="${graph_type_to_str[$graph_type]}"
-v=$2
-density=$3
-seed=${4:-"$default_seed"}
+seed=${seed:-"$default_seed"}
 signature="$graph_type_str-$v-$density-$seed"
 
 hist_file="histogram_$signature.pdf"
