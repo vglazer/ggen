@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-ansi -pedantic -Wall -Werror -O3 -march=native
+CC = gcc
+CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
 
 all: ggen tests gallery
 
