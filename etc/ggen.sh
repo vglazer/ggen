@@ -3,8 +3,6 @@
 # "strict mode"
 set -euo pipefail
 
-
-
 script_name=$(basename "$0")
 default_seed=1
 
