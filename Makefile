@@ -70,52 +70,52 @@ gallery:
 	mkdir -p $@
 
 create_gallery: ggen gallery
-	etc/ggen.sh --graph-type exponential --v 10 --density 200 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 10 --density 200 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 10 --density 200 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 10 --density 500 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 10 --density 500 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 10 --density 500 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 10 --density 200 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 10 --density 200 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 10 --density 200 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 10 --density 500 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 10 --density 500 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 10 --density 500 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 10 --density 200 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 10 --density 200 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 10 --density 200 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 10 --density 500 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 10 --density 500 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 10 --density 500 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 20 --density 100 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 20 --density 100 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 20 --density 100 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 20 --density 100 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 20 --density 100 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 20 --density 100 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 20 --density 100 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 20 --density 100 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 20 --density 100 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 30 --density 200 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 30 --density 200 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 30 --density 200 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 30 --density 500 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 30 --density 500 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 30 --density 500 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 30 --density 200 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 30 --density 200 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 30 --density 200 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 30 --density 500 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 30 --density 500 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type power --v 30 --density 500 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 30 --density 200 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 30 --density 200 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 30 --density 200 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 30 --density 500 --seed 1 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 30 --density 500 --seed 2 --graph-dir gallery
-	etc/ggen.sh --graph-type geometric --v 30 --density 500 --seed 3 --graph-dir gallery
-	etc/ggen.sh --graph-type exponential --v 100 --density 500 --seed 1 --graph-dir gallery
+	etc/ggen.sh --graph-type exponential --v 10 --density 200 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 10 --density 200 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 10 --density 200 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 10 --density 500 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 10 --density 500 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 10 --density 500 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 10 --density 200 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 10 --density 200 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 10 --density 200 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 10 --density 500 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 10 --density 500 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 10 --density 500 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 10 --density 200 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 10 --density 200 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 10 --density 200 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 10 --density 500 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 10 --density 500 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 10 --density 500 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 20 --density 100 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 20 --density 100 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 20 --density 100 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 20 --density 100 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 20 --density 100 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 20 --density 100 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 20 --density 100 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 20 --density 100 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 20 --density 100 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 30 --density 200 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 30 --density 200 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 30 --density 200 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 30 --density 500 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 30 --density 500 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 30 --density 500 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 30 --density 200 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 30 --density 200 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 30 --density 200 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 30 --density 500 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 30 --density 500 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type power --v 30 --density 500 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 30 --density 200 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 30 --density 200 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 30 --density 200 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 30 --density 500 --seed 1 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 30 --density 500 --seed 2 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type geometric --v 30 --density 500 --seed 3 --graph-dir gallery --hist --plot
+	etc/ggen.sh --graph-type exponential --v 100 --density 500 --seed 1 --graph-dir gallery --hist --plot
 
 clean:
 	rm -rf bin tests gallery

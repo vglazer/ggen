@@ -8,20 +8,22 @@ default_seed=1
 
 usage() {
   cat >&2 <<EOF
-Usage: $script_name --graph-type <graph_type> --v <v> --density <density> [--seed <seed>] [--graph-dir <graph_dir>]
+Usage: $script_name --graph-type <graph_type> --v <v> --density <density> [--seed <seed>] [--graph-dir <graph_dir>] [--hist] [--plot]
 
 Arguments:  
-  --graph-type   Type of graph to generate (exponential, power, geometric)
-  --v            Number of vertices
-  --density      Graph density (0 <= density <= 1000; density 500 means that 50% of the edges are present)
-  --seed         Optional random seed (a positive integer), default: $default_seed
-  --graph-dir    Optional directory to save graphs to, default: current working directory
+  --graph-type Type of graph to generate (exponential, power, geometric)
+  --v          Number of vertices
+  --density    Graph density (0 <= density <= 1000; density 500 means that 50% of the edges are present)
+  --seed       Optional random seed (a positive integer), default: $default_seed
+  --graph-dir  Optional directory to save graphs to, default: current working directory
+  --hist       Optionally generate Gnuplot histogram
+  --plot       Optionally generate Graphviz plot
 
 Examples:
-  exponential, 100  vertices,  density 600, seed $default_seed,  save to pwd:    $script_name --graph-type exponential --v 100  --density 600
-  exponential, 100  vertices,  density 600, seed 42, save to graphs: $script_name --graph-type exponential --v 100  --density 600 --seed 42 --graph-dir graphs
-  power,       2500 vertices,  density 200, seed 42, save to graphs: $script_name --graph-type power       --v 2500 --density 200 --seed 42 --graph-dir graphs
-  geometric,   790  vertices,  density 150, seed 42, save to graphs: $script_name --graph-type geometric   --v 790  --density 150 --seed 42 --graph-dir graphs
+  exponential, 100  vertices, density 600, seed $default_seed,  save to pwd,    no histogram, no plot: $script_name --graph-type exponential --v 100  --density 600
+  exponential, 100  vertices, density 600, seed 42, save to graphs, histogram only:        $script_name --graph-type exponential --v 100  --density 600 --seed 42 --graph-dir graphs --hist
+  power,       2500 vertices, density 200, seed 42, save to graphs, plot only:             $script_name --graph-type power       --v 2500 --density 200 --seed 42 --graph-dir graphs --plot
+  geometric,   790  vertices, density 150, seed 42, save to graphs, histogram and plot:    $script_name --graph-type geometric   --v 790  --density 150 --seed 42 --graph-dir graphs --hist --plot
 
 EOF
   exit 1
@@ -31,6 +33,8 @@ if [[ $# -eq 0 ]]; then
   usage
 fi
 
+generate_histogram=0
+generate_plot=0
 while [[ $# -gt 0 ]]; do
   case $1 in
     --graph-type)
@@ -56,6 +60,14 @@ while [[ $# -gt 0 ]]; do
     --graph-dir)
       graph_dir="$2"
       shift
+      shift
+      ;;
+    --hist)
+      generate_histogram=1
+      shift
+      ;;
+    --plot)
+      generate_plot=1
       shift
       ;;
     *)
@@ -178,6 +190,19 @@ else
   large_graph=0
 fi
 
+
+if (( generate_histogram == 1 )); then
+  histogram_cmd="gnuplot -e \"$gnuplot_script\""
+else
+  histogram_cmd="cat > /dev/null"
+fi
+
+if (( generate_plot == 1 )); then
+  plot_cmd="dot -Tpdf -o $graphviz_path"
+else
+  plot_cmd="cat > /dev/null"
+fi
+
 # we want a pipeline that extracts the graph out of the ggen output and converts it to a dot format
 # as well as rendering it and producing a gnuplot histogram of the degree distribution.
 # certain ggen arguments are hardcoded to 0 because ggen.sh does not expose the corresponding ggen functionality
@@ -188,9 +213,17 @@ compl=0
 echo "$graph_type $v $num_sets $density $seed $num_fixed $fixed_type $compl" | $ggen_binary \
   | tee >(grep "\-1$" > "$graph_path") | tee >(grep -v "\-1$" > "$stats_path") \
   | grep "\-1$" | sed 's/-1//g' | awk -v v="$v" -v large_graph="$large_graph" "$awk_script" \
-  2> >(tee >(dot -Tpdf -o "$graphviz_path") "$dot_path") \
-  | gnuplot -e "$gnuplot_script"
+  2> >(tee >(eval "$plot_cmd") "$dot_path") \
+  | eval "$histogram_cmd"
 
 nedges=$(grep 'E =' "$stats_path" | cut -d',' -f 2 | cut -d'=' -f 2 | tr -d ' ')
 echo "$nedges"
 echo "$dot_path"
+echo "$graph_path"
+echo "$stats_path"
+if (( generate_histogram == 1 )); then
+  echo "$hist_path"
+fi
+if (( generate_plot == 1 )); then
+  echo "$graphviz_path"
+fi
