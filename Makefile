@@ -1,17 +1,20 @@
+.PHONY: all test create_gallery clean
+
 CC = gcc
 CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
 
-all: ggen tests gallery
+all: ggen test create_gallery
 
-ggen: src/ggen.c bin_dir
+bin:
+	mkdir -p $@
+
+ggen: src/ggen.c bin
 	$(CC) $(CFLAGS) $< -o bin/$@
 
-.PHONY: bin_dir
-bin_dir:
-	mkdir -p bin
+tests:
+	mkdir -p $@
 
-.PHONY: tests
-tests: ggen tests_dir
+test: ggen tests
 	etc/ggen.sh 2 10 0 42 tests
 	etc/graph2edges.sh tests/graph_exponential-10-0-42.txt
 	etc/edges2degrees.sh 10 tests/edges_exponential-10-0-42.csv
@@ -62,12 +65,10 @@ tests: ggen tests_dir
 	etc/dot2pdf.sh tests/neato_geometric-100-500-42.dot
 	diff -s tests/degree_counts_geometric-100-500-42.csv tests/counts_geometric-100-500-42.csv
 
-.PHONY: tests_dir
-tests_dir:
-	mkdir -p tests
+gallery:
+	mkdir -p $@
 
-.PHONY: gallery
-gallery: ggen gallery_dir
+create_gallery: ggen gallery
 	etc/ggen.sh 2 10 200 1 gallery
 	etc/ggen.sh 2 10 200 2 gallery
 	etc/ggen.sh 2 10 200 3 gallery
@@ -115,10 +116,5 @@ gallery: ggen gallery_dir
 	etc/ggen.sh 4 30 500 3 gallery
 	etc/ggen.sh 2 100 500 1 gallery
 
-.PHONY: gallery_dir
-gallery_dir:
-	mkdir -p gallery
-
-.PHONY: clean
 clean:
 	rm -rf bin tests gallery
