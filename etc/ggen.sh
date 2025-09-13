@@ -97,6 +97,7 @@ esac
 
 script_dir=$(dirname "$(realpath "$0")")
 repo_dir=$(dirname "$script_dir")
+
 ggen_binary="$repo_dir/bin/ggen"
 if [[ ! -f "$ggen_binary" ]]; then
   echo "$script_name: ggen binary not found" >&2
@@ -189,7 +190,6 @@ if (( v > 20 )); then
 else
   large_graph=0
 fi
-
 
 if (( generate_histogram == 1 )); then
   histogram_cmd="gnuplot -e \"$gnuplot_script\""
