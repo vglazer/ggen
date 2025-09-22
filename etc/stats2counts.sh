@@ -8,7 +8,7 @@ if (( $# != 1 )); then
   cat >&2 <<EOF
 Usage: $script_name stats_file
 
-Arguments:  
+Arguments:
   stats_file  Path to file containing stats. Filename must match stats_*.txt
 
 EOF

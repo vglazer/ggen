@@ -8,7 +8,7 @@ if (( $# != 1 )); then
   cat >&2 <<EOF
 Usage: $script_name graphviz_file
 
-Arguments:  
+Arguments:
   graphviz_file  Path to file containing Graphviz graph description. Filename must match *.dot
 
 EOF

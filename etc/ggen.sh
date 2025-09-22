@@ -10,7 +10,7 @@ usage() {
   cat >&2 <<EOF
 Usage: $script_name --graph-type <graph_type> --v <v> --density <density> [--seed <seed>] [--graph-dir <graph_dir>] [--hist] [--plot]
 
-Arguments:  
+Arguments:
   --graph-type Type of graph to generate (exponential, power, geometric)
   --v          Number of vertices
   --density    Graph density (0 <= density <= 1000; density 500 means that 50% of the edges are present)

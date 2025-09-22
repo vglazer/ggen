@@ -8,7 +8,7 @@ if (( $# != 1 )); then
   cat >&2 <<EOF
 Usage: $script_name graph_file
 
-Arguments:  
+Arguments:
   graph_file  Path to graph file. Filename must match graph_*.txt
 
 EOF
