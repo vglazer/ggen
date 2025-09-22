@@ -16,6 +16,11 @@ EOF
 fi
 
 stats_path=$1
+if [[ ! -f "$stats_path" ]]; then
+  echo "$stats_path does not exist" >&2
+  exit 1
+fi
+
 stats_dir=$(dirname "$stats_path")
 stats_file=$(basename "$stats_path")
 if [[ $stats_file =~ ^stats_(.+).txt$ ]]; then

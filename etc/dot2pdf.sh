@@ -16,6 +16,11 @@ EOF
 fi
 
 graphviz_path=$1
+if [[ ! -f "$graphviz_path" ]]; then
+  echo "$graphviz_path does not exist" >&2
+  exit 1
+fi
+
 graphviz_dir=$(dirname "$graphviz_path")
 graphviz_file=$(basename "$graphviz_path")
 if [[ $graphviz_file =~ ^(.+).dot$ ]]; then
