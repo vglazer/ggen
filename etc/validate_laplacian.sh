@@ -50,6 +50,21 @@ if [[ -z "$laplacian_file" || -z "$edges_file" || -z "$degrees_file" ]]; then
   usage
 fi
 
+if [[ ! -f "$laplacian_file" ]]; then
+  echo "$laplacian_file does not exist" >&2
+  exit 1
+fi
+
+if [[ ! -f "$edges_file" ]]; then
+  echo "$edges_file does not exist" >&2
+  exit 1
+fi
+
+if [[ ! -f "$degrees_file" ]]; then
+  echo "$degrees_file does not exist" >&2
+  exit 1
+fi
+
 # Extract number of vertices from degrees file
 v=$(wc -l < "$degrees_file")
 
