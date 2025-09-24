@@ -63,29 +63,21 @@ def compute_num_spanning_trees(eigenvalues, num_vertices, num_connected_componen
     # Sort eigenvalues to ensure the smallest is first
     sorted_eigenvalues = np.sort(eigenvalues)
 
-    # Calculate and print the spectral gap / Fiedler value (2nd smallest eigenvalue)
+    # Spectral gap is the Fiedler value (2nd smallest eigenvalue), because the smallest eigenvalue is 0
     spectral_gap = sorted_eigenvalues[1]
     print(f"Spectral gap: {spectral_gap}")
 
     # Kirchhoff's Matrix Tree Theorem: (1/n) * product of (n-1) non-zero eigenvalues.
-    # For a connected graph, there is exactly one zero eigenvalue (the smallest).
-    # So, we take the product of all eigenvalues except the smallest one.
-    # We use a tolerance to filter out the zero eigenvalue.
     non_zero_eigenvalues_for_product = sorted_eigenvalues[~np.isclose(sorted_eigenvalues, 0, atol=EIGENVALUE_TOLERANCE)]
 
-    # If after filtering, we don't have (num_vertices - 1) eigenvalues, it might indicate an issue
-    # or a graph that's not simply connected (e.g., a tree with multiple components, which we already handled).
     # For a connected graph, we expect exactly num_vertices - 1 non-zero eigenvalues.
     if len(non_zero_eigenvalues_for_product) != num_vertices - 1:
-        # This case should ideally not happen for a connected graph, but for robustness
-        # we can return 0 or raise an error, depending on desired behavior.
-        # For now, let's return 0 as it implies it's not a simple connected graph for this formula.
         return 0
 
     product_of_non_zero_eigenvalues = np.prod(non_zero_eigenvalues_for_product)
     num_spanning_trees = product_of_non_zero_eigenvalues / num_vertices
 
-    # The number of spanning trees must be an integer. Round to nearest integer.
+    # The number of spanning trees must be an integer.
     return round(num_spanning_trees)
 
 def process_laplacian(laplacian_path, perform_check=False):
@@ -102,14 +94,14 @@ def process_laplacian(laplacian_path, perform_check=False):
     """
     laplacian_matrix = load_matrix(laplacian_path)
     num_vertices = laplacian_matrix.shape[0]
-    
+
     # Compute all eigenvalues and eigenvectors in a single call
     eigenvalues, eigenvectors = np.linalg.eigh(laplacian_matrix)
 
     if perform_check:
         # Consistency checks for L = D - A:
         # - off-diagonal entries sum to 2*|E|
-        # - eigenvalues sum to trace (which is the degree sum)
+        # - eigenvalues add up to the trace, which equals the sum of the degrees
         trace = np.trace(laplacian_matrix)
         print(f"Sum of degrees (trace of Laplacian): {trace}")
 
