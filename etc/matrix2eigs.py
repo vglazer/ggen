@@ -19,18 +19,6 @@ def load_matrix(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
     return np.loadtxt(file_path, delimiter=',')
 
-def compute_eigenvalues(matrix):
-    """
-    Computes the eigenvalues of a symmetric matrix.
-
-    Args:
-        matrix (np.ndarray): The symmetric matrix.
-
-    Returns:
-        np.ndarray: An array of eigenvalues.
-    """
-    return np.linalg.eigvalsh(matrix)
-
 def extract_signature(file_path, pattern):
     """
     Extracts a signature from a filename based on a regex pattern.
@@ -64,16 +52,12 @@ def compute_num_spanning_trees(eigenvalues, num_vertices, num_connected_componen
         int: The number of spanning trees. Returns 0 for disconnected graphs or invalid inputs.
     """
     if num_connected_components > 1:
-        # Fiedler value for disconnected graph is 0.0
-        print(f"Fiedler value: {0.0}")
-        return 0  # A disconnected graph has 0 spanning trees
+        return 0  # A disconnected graph has no spanning trees
 
     if num_vertices == 0:
-        print(f"Fiedler value: {0.0}")
         return 0  # No vertices, no spanning trees
 
     if num_vertices == 1:
-        print(f"Fiedler value: {0.0}") # A single vertex graph has no edges, Fiedler value is 0
         return 1  # A single vertex graph has 1 spanning tree (itself)
 
     # Sort eigenvalues to ensure the smallest is first
@@ -104,7 +88,7 @@ def compute_num_spanning_trees(eigenvalues, num_vertices, num_connected_componen
     # The number of spanning trees must be an integer. Round to nearest integer.
     return round(num_spanning_trees)
 
-def connected_components(laplacian_path, perform_check=False):
+def process_laplacian(laplacian_path, perform_check=False):
     """
     Computes and prints various spectral properties of a graph given its Laplacian matrix,
     and saves the eigenvalues to a file.
@@ -123,8 +107,9 @@ def connected_components(laplacian_path, perform_check=False):
     eigenvalues, eigenvectors = np.linalg.eigh(laplacian_matrix)
 
     if perform_check:
-        # Consistency checks: L = D - A; diagonal entries are degreees, off-diagonal entries sum to 2*|E|. 
-        # eigenvalues should sum to trace.
+        # Consistency checks for L = D - A:
+        # - off-diagonal entries sum to 2*|E|
+        # - eigenvalues sum to trace (which is the degree sum)
         trace = np.trace(laplacian_matrix)
         print(f"Sum of degrees (trace of Laplacian): {trace}")
 
@@ -148,25 +133,22 @@ def connected_components(laplacian_path, perform_check=False):
     signature = extract_signature(laplacian_path, r"laplacian_(.+)\.csv$")
     output_dir = os.path.dirname(laplacian_path)
 
-    # Save all eigenvectors to a separate CSV file
+    # Save eigenvalues to a CSV file
+    eigenvalues_output_filename = f"eigs_{signature}.csv"
+    eigenvalues_output_path = os.path.join(output_dir, eigenvalues_output_filename)
+    with open(eigenvalues_output_path, 'w') as f:
+        f.write(f"{','.join(map(str, eigenvalues))}\n")
+    print(f"{eigenvalues_output_path}")
+
+    # Save eigenvectors to a CSV file
     eigenvectors_output_filename = f"eigvects_{signature}.csv"
     eigenvectors_output_path = os.path.join(output_dir, eigenvectors_output_filename)
     np.savetxt(eigenvectors_output_path, eigenvectors.T, delimiter=',') # Transpose to have eigenvectors as rows
     print(f"{eigenvectors_output_path}")
 
-    # Save eigenvalues to a separate CSV file
-    eigenvalues_output_filename = f"eigs_{signature}.csv"
-    eigenvalues_output_path = os.path.join(output_dir, eigenvalues_output_filename)
-    with open(eigenvalues_output_path, 'w') as f:
-        f.write(f"{','.join(map(str, eigenvalues))}\n")
-
-    print(f"{eigenvalues_output_path}")
-    
-    return eigenvalues_output_path
-
 if __name__ == "__main__":
     script_name = os.path.basename(sys.argv[0])
-    
+
     def usage():
         print(f"Usage: {script_name} <path_to_laplacian_csv> [--check]")
         sys.exit(1)
@@ -191,7 +173,7 @@ if __name__ == "__main__":
         usage()
 
     try:
-        connected_components(laplacian_file_path, perform_check)
+        process_laplacian(laplacian_file_path, perform_check)
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)
