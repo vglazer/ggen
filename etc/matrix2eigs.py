@@ -52,15 +52,12 @@ def process_laplacian(laplacian_path, check=False):
         str: The path to the output file containing the eigenvalues.
     """
     laplacian_matrix = load_matrix(laplacian_path)
-    num_vertices = laplacian_matrix.shape[0]
-
-    # Compute all eigenvalues and eigenvectors in a single call
     eigenvalues, eigenvectors = np.linalg.eigh(laplacian_matrix)
 
     if check:
         # Consistency checks for L = D - A:
-        # - off-diagonal entries sum to 2*|E|
-        # - eigenvalues add up to the trace, which equals the sum of the degrees
+        # 1) Off-diagonal entries sum to 2*|E|, which is the sum of the degrees
+        # 2) Eigenvalues also sum to 2*|E|
         trace = np.trace(laplacian_matrix)
         print(f"Sum of degrees (trace of Laplacian): {trace}")
 
@@ -75,11 +72,12 @@ def process_laplacian(laplacian_path, check=False):
         if not np.isclose(trace, eig_sum, atol=EIGENVALUE_TOLERANCE):
             print(f"Warning: Sum of degrees ({trace}) does not match sum of eigenvalues ({eig_sum}).")
 
+    # The smallest eigenvalue is always 0 and its multiplicity is the number of connected components
     num_connected_components = np.sum(np.isclose(eigenvalues, 0, atol=EIGENVALUE_TOLERANCE))
     print(f"Number of connected components: {int(num_connected_components)}")
 
-    # Spectral gap is the difference between the 2nd smallest and smallest eigenvalues, which is just the
-    # Fiedler value (2nd smallest eigenvalue), because the smallest is 0.
+    # The spectral gap is the difference between the 2nd smallest and smallest eigenvalues, which is 
+    # just the Fiedler value (2nd smallest eigenvalue), because the smallest eigenvalue is 0.
     sorted_eigenvalues = np.sort(eigenvalues)
     spectral_gap = sorted_eigenvalues[1]
     print(f"Spectral gap: {spectral_gap}")
