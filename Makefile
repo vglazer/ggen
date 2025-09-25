@@ -5,6 +5,10 @@ CFLAGS = -ansi -pedantic -Wall -Werror -O3 -march=native
 
 all: ggen test create_gallery
 
+.venv:
+	uv venv
+	uv pip install numpy
+
 bin:
 	mkdir -p $@
 
@@ -15,11 +19,12 @@ ggen: bin/ggen
 tests:
 	mkdir -p $@
 
-test: ggen tests
+test: ggen tests .venv
 	etc/ggen.sh --graph-type exponential --v 10 --density 0 --seed 42 --graph-dir tests
 	etc/graph2edges.sh tests/graph_exponential-10-0-42.txt
 	etc/edges2degrees.sh 10 tests/edges_exponential-10-0-42.csv
 	etc/edges2matrix.sh tests/edges_exponential-10-0-42.csv tests/degrees_exponential-10-0-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_exponential-10-0-42.csv --check
 	etc/stats2counts.sh tests/stats_exponential-10-0-42.txt
 	etc/edges2neato.sh 10 tests/edges_exponential-10-0-42.csv
 	etc/dot2pdf.sh tests/neato_exponential-10-0-42.dot
@@ -28,6 +33,7 @@ test: ggen tests
 	etc/graph2edges.sh tests/graph_exponential-10-500-42.txt
 	etc/edges2degrees.sh 10 tests/edges_exponential-10-500-42.csv
 	etc/edges2matrix.sh tests/edges_exponential-10-500-42.csv tests/degrees_exponential-10-500-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_exponential-10-500-42.csv --check
 	etc/stats2counts.sh tests/stats_exponential-10-500-42.txt
 	etc/edges2neato.sh 10 tests/edges_exponential-10-500-42.csv
 	etc/dot2pdf.sh tests/neato_exponential-10-500-42.dot
@@ -36,6 +42,7 @@ test: ggen tests
 	etc/graph2edges.sh tests/graph_exponential-100-500-42.txt
 	etc/edges2degrees.sh 100 tests/edges_exponential-100-500-42.csv
 	etc/edges2matrix.sh tests/edges_exponential-100-500-42.csv tests/degrees_exponential-100-500-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_exponential-100-500-42.csv --check
 	etc/stats2counts.sh tests/stats_exponential-100-500-42.txt
 	etc/edges2dot.sh 100 tests/edges_exponential-100-500-42.csv neato 30 true point 0.05
 	etc/dot2pdf.sh tests/neato_exponential-100-500-42.dot
@@ -44,6 +51,7 @@ test: ggen tests
 	etc/graph2edges.sh tests/graph_power-10-500-42.txt
 	etc/edges2degrees.sh 10 tests/edges_power-10-500-42.csv
 	etc/edges2matrix.sh tests/edges_power-10-500-42.csv tests/degrees_power-10-500-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_power-10-500-42.csv --check
 	etc/stats2counts.sh tests/stats_power-10-500-42.txt
 	etc/edges2neato.sh 10 tests/edges_power-10-500-42.csv
 	etc/dot2pdf.sh tests/neato_power-10-500-42.dot
@@ -52,6 +60,7 @@ test: ggen tests
 	etc/graph2edges.sh tests/graph_power-100-500-42.txt
 	etc/edges2degrees.sh 100 tests/edges_power-100-500-42.csv
 	etc/edges2matrix.sh tests/edges_power-100-500-42.csv tests/degrees_power-100-500-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_power-100-500-42.csv --check
 	etc/stats2counts.sh tests/stats_power-100-500-42.txt
 	etc/edges2dot.sh 100 tests/edges_power-100-500-42.csv neato 30 true point 0.05
 	etc/dot2pdf.sh tests/neato_power-100-500-42.dot
@@ -60,6 +69,7 @@ test: ggen tests
 	etc/graph2edges.sh tests/graph_geometric-10-500-42.txt
 	etc/edges2degrees.sh 10 tests/edges_geometric-10-500-42.csv
 	etc/edges2matrix.sh tests/edges_geometric-10-500-42.csv tests/degrees_geometric-10-500-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_geometric-10-500-42.csv --check
 	etc/stats2counts.sh tests/stats_geometric-10-500-42.txt
 	etc/edges2neato.sh 10 tests/edges_geometric-10-500-42.csv
 	etc/dot2pdf.sh tests/neato_geometric-10-500-42.dot
@@ -68,6 +78,7 @@ test: ggen tests
 	etc/graph2edges.sh tests/graph_geometric-100-500-42.txt
 	etc/edges2degrees.sh 100 tests/edges_geometric-100-500-42.csv
 	etc/edges2matrix.sh tests/edges_geometric-100-500-42.csv tests/degrees_geometric-100-500-42.csv
+	uv run etc/matrix2eigs.py tests/laplacian_geometric-100-500-42.csv --check
 	etc/stats2counts.sh tests/stats_geometric-100-500-42.txt
 	etc/edges2dot.sh 100 tests/edges_geometric-100-500-42.csv neato 30 true point 0.05
 	etc/dot2pdf.sh tests/neato_geometric-100-500-42.dot
@@ -125,4 +136,4 @@ create_gallery: ggen gallery
 	etc/ggen.sh --graph-type exponential --v 100 --density 500 --seed 1 --graph-dir gallery --hist --plot
 
 clean:
-	rm -rf bin tests gallery
+	rm -rf bin tests gallery .venv
