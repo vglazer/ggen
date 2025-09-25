@@ -4,6 +4,7 @@
 
 ## Quickstart
 
+- `brew install uv`
 - `brew install graphviz`
 - `brew install gnuplot`
 - Clone the repo
