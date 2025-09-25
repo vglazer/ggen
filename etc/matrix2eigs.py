@@ -80,7 +80,7 @@ def compute_num_spanning_trees(eigenvalues, num_vertices, num_connected_componen
     # The number of spanning trees must be an integer.
     return round(num_spanning_trees)
 
-def process_laplacian(laplacian_path, perform_check=False):
+def process_laplacian(laplacian_path, check=False):
     """
     Computes and prints various spectral properties of a graph given its Laplacian matrix,
     and saves the eigenvalues to a file.
@@ -98,7 +98,7 @@ def process_laplacian(laplacian_path, perform_check=False):
     # Compute all eigenvalues and eigenvectors in a single call
     eigenvalues, eigenvectors = np.linalg.eigh(laplacian_matrix)
 
-    if perform_check:
+    if check:
         # Consistency checks for L = D - A:
         # - off-diagonal entries sum to 2*|E|
         # - eigenvalues add up to the trace, which equals the sum of the degrees
@@ -147,13 +147,13 @@ if __name__ == "__main__":
 
     # Parse arguments
     laplacian_file_path = None
-    perform_check = False
+    check = False
 
     args = sys.argv[1:]
     i = 0
     while i < len(args):
         if args[i] == "--check":
-            perform_check = True
+            check = True
             i += 1
         elif laplacian_file_path is None:
             laplacian_file_path = args[i]
@@ -165,7 +165,7 @@ if __name__ == "__main__":
         usage()
 
     try:
-        process_laplacian(laplacian_file_path, perform_check)
+        process_laplacian(laplacian_file_path, check)
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)
