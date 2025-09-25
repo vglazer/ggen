@@ -39,47 +39,6 @@ def extract_signature(file_path, pattern):
         raise ValueError(f"Filename '{filename}' does not match expected pattern '{pattern}'")
     return match.group(1)
 
-def compute_num_spanning_trees(eigenvalues, num_vertices, num_connected_components):
-    """
-    Computes the number of spanning trees in a graph.
-
-    Args:
-        eigenvalues (np.ndarray): Sorted eigenvalues of the Laplacian matrix.
-        num_vertices (int): The number of vertices in the graph.
-        num_connected_components (int): The number of connected components in the graph.
-
-    Returns:
-        int: The number of spanning trees. Returns 0 for disconnected graphs or invalid inputs.
-    """
-    if num_connected_components > 1:
-        return 0  # A disconnected graph has no spanning trees
-
-    if num_vertices == 0:
-        return 0  # No vertices, no spanning trees
-
-    if num_vertices == 1:
-        return 1  # A single vertex graph has 1 spanning tree (itself)
-
-    # Sort eigenvalues to ensure the smallest is first
-    sorted_eigenvalues = np.sort(eigenvalues)
-
-    # Spectral gap is the Fiedler value (2nd smallest eigenvalue), because the smallest eigenvalue is 0
-    spectral_gap = sorted_eigenvalues[1]
-    print(f"Spectral gap: {spectral_gap}")
-
-    # Kirchhoff's Matrix Tree Theorem: (1/n) * product of (n-1) non-zero eigenvalues.
-    non_zero_eigenvalues_for_product = sorted_eigenvalues[~np.isclose(sorted_eigenvalues, 0, atol=EIGENVALUE_TOLERANCE)]
-
-    # For a connected graph, we expect exactly num_vertices - 1 non-zero eigenvalues.
-    if len(non_zero_eigenvalues_for_product) != num_vertices - 1:
-        return 0
-
-    product_of_non_zero_eigenvalues = np.prod(non_zero_eigenvalues_for_product)
-    num_spanning_trees = product_of_non_zero_eigenvalues / num_vertices
-
-    # The number of spanning trees must be an integer.
-    return round(num_spanning_trees)
-
 def process_laplacian(laplacian_path, check=False):
     """
     Computes and prints various spectral properties of a graph given its Laplacian matrix,
@@ -119,8 +78,11 @@ def process_laplacian(laplacian_path, check=False):
     num_connected_components = np.sum(np.isclose(eigenvalues, 0, atol=EIGENVALUE_TOLERANCE))
     print(f"Number of connected components: {int(num_connected_components)}")
 
-    num_spanning_trees = compute_num_spanning_trees(eigenvalues, num_vertices, num_connected_components)
-    print(f"Number of spanning trees: {int(num_spanning_trees)}")
+    # Spectral gap is the difference between the 2nd smallest and smallest eigenvalues, which is just the
+    # Fiedler value (2nd smallest eigenvalue), because the smallest is 0.
+    sorted_eigenvalues = np.sort(eigenvalues)
+    spectral_gap = sorted_eigenvalues[1]
+    print(f"Spectral gap: {spectral_gap}")
 
     signature = extract_signature(laplacian_path, r"laplacian_(.+)\.csv$")
     output_dir = os.path.dirname(laplacian_path)
